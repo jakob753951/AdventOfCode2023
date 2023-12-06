@@ -1,0 +1,1 @@
+print(sum(__import__('math').floor(2 ** ((lambda a, b: len(a.intersection(b)))(*map(lambda a: set(map(int, a.split())), line.split(': ')[1].split(' | ')))-1)) for line in open('input.txt').read().split('\n')))

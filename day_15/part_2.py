@@ -17,9 +17,14 @@ def HASH(s: str) -> int:
 class HashMap:
     def __init__(self):
         self.boxes = defaultdict(list)
-    
+
     def __setitem__(self, key: str, value: str):
-        self.boxes[HASH(key)].append((key, value))
+        box = self.boxes[HASH(key)]
+        matching_items = [item for item in box if item[0] == key]
+        if len(matching_items) == 0:
+            box.append((key, value))
+        else:
+            box[box.index(matching_items[0])] = (key, value)
 
     def __getitem__(self, key: str) -> str | None:
         box = self.boxes[HASH(key)]
@@ -28,7 +33,14 @@ class HashMap:
         return matching_items[0]
 
     def remove(self, key: str):
-        self.boxes[HASH(key)].remove([value for value in self.boxes[HASH(key)] if value[0] == key][0])
+        box = self.boxes[HASH(key)]
+        matching_items = [item for item in box if item[0] == key]
+        if len(matching_items) == 0: return None
+        box.remove(matching_items[0])
+
+    def score(self) -> int:
+        pass
+
 
 hashmap = HashMap()
 for string in strings:

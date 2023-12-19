@@ -39,7 +39,11 @@ class HashMap:
         box.remove(matching_items[0])
 
     def score(self) -> int:
-        pass
+        sum = 0
+        for box_number, contents in self.boxes.items():
+            for i, (key, value) in enumerate(contents):
+                sum += (box_number+1) * (i+1) * int(value)
+        return sum
 
 
 hashmap = HashMap()
@@ -50,4 +54,4 @@ for string in strings:
         key, value = string.split('=')
         hashmap[key] = value
 
-print(hashmap)
+print(hashmap.score())
